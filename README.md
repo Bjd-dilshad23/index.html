@@ -1,22 +1,29 @@
-<!DOCTYPE html>
-<html lang="hi">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>MLovely Game</title>
-    <style>
-        body, html { margin: 0; padding: 0; overflow: hidden; background-color: #000; height: 100%; width: 100%; touch-action: none; }
-        #joystick { position: absolute; bottom: 50px; left: 50px; width: 80px; height: 80px; background: rgba(255,255,255,0.2); border-radius: 50%; }
-        #stick { position: absolute; top: 20px; left: 20px; width: 40px; height: 40px; background: red; border-radius: 50%; }
-        #player { position: absolute; width: 30px; height: 30px; background: cyan; top: 50%; left: 50%; }
-    </style>
-</head>
-<body>
-    <div style="color:yellow; text-align:center; position:absolute; width:100%; top:20px;">PATNA METRO - MLOVELY</div>
-    <div id="player"></div>
-    <div id="joystick"><div id="stick"></div></div>
-</body>
-</html>
+<script>
+    // Pehle se behtar Movement Logic
+    let speed = 5;
+    function updatePlayer() {
+        player.x += moveX * speed;
+        player.y += moveY * speed;
+
+        // Screen se bahar na jaye uske liye:
+        if(player.x < 0) player.x = 0;
+        if(player.y < 0) player.y = 0;
+        if(player.x > canvas.width - player.size) player.x = canvas.width - player.size;
+        if(player.y > canvas.height - player.size) player.y = canvas.height - player.size;
+    }
+
+    // Bhojpuri Voice Command (Testing ke liye)
+    function bolBhojpuri(text) {
+        let utterance = new SpeechSynthesisUtterance(text);
+        utterance.lang = 'hi-IN'; // Bhojpuri ke liye Hindi accent best kaam karta hai
+        window.speechSynthesis.speak(utterance);
+    }
+
+    // Jab game chalu ho toh ye bolega
+    window.onload = () => {
+        bolBhojpuri("Pranaam! Patna Metro Station mein raua swagat ba.");
+    };
+</script>
 
 
 
