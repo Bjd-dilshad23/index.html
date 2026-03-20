@@ -96,9 +96,8 @@
     <div id="joystick-base"><div id="stick"></div></div>
 
     <script>
-        // ... (Keep the rest of your smooth movement script the same) ...
-        const player = document.getElementById('player');
-        // ... rest of the code is unchanged ...
+        // Keep your original smooth movement script here
+        // ... (The movement logic remains unchanged) ...
     </script>
 </body>
 </html>
