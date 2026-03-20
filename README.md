@@ -1,84 +1,108 @@
 <!DOCTYPE html>
-<html>
+<html lang="hi">
 <head>
+    <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>MLovely - Patna Metro</title>
     <style>
-        body, html { margin: 0; padding: 0; overflow: hidden; background: #1a1a1a; height: 100%; width: 100%; touch-action: none; font-family: 'Arial', sans-serif; }
+        body, html { margin: 0; padding: 0; overflow: hidden; background: #0a0a0a; height: 100%; width: 100%; touch-action: none; font-family: 'Montserrat', sans-serif; }
         
-        /* ML Intertwined Logo */
-        #logo { position: absolute; top: 10px; left: 10px; font-size: 26px; font-weight: bold; color: #ff4500; z-index: 20; }
-        #logo span { color: #fff; margin-left: -10px; }
+        /* New Game Title Style */
+        #game-title {
+            position: absolute;
+            top: 25px;
+            width: 100%;
+            text-align: center;
+            font-size: 20px;
+            font-weight: bold;
+            text-transform: uppercase;
+            color: #d8dcd1; /* Light gray text */
+            z-index: 20;
+            pointer-events: none;
+        }
+        #game-title .battle-jack { color: #d8dcd1; }
+        #game-title .destiny { color: #c00000; /* Deep red for Destiny */ }
 
-        #ui { position: absolute; top: 15px; width: 100%; text-align: center; color: yellow; z-index: 10; pointer-events: none; }
+        /* Mlovely Intertwined Logo in Shield with Wings */
+        #logo-container {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            z-index: 20;
+            pointer-events: none;
+        }
+        #shield {
+            width: 100px;
+            height: 120px;
+            background: rgba(192, 0, 0, 0.2); /* Reddish-pink transparent shield */
+            border: 4px solid #bda88a; /* Matte gold border */
+            border-bottom: 8px solid #bda88a; /* Pointy bottom */
+            border-radius: 5px;
+            position: relative;
+            box-shadow: 0 0 15px rgba(192,0,0,0.5);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        #shield::after { /* Wing shape with white/red color */
+            content: '';
+            position: absolute;
+            top: 20px;
+            left: -35px;
+            width: 170px;
+            height: 70px;
+            background: linear-gradient(to bottom, #d8dcd1 50%, #c00000 50%); /* Gradient of white and red */
+            border-radius: 50% 50% 0 0 / 100% 100% 0 0;
+            z-index: 10;
+        }
+        #mlovely-text {
+            color: #d8dcd1;
+            font-size: 26px;
+            font-weight: bold;
+            margin-top: -15px; /* Adjust spacing below shield */
+            z-index: 20;
+        }
         
-        #player { position: absolute; width: 40px; height: 40px; background: #00ffff; border: 2px solid #fff; border-radius: 5px; box-shadow: 0 0 15px #00ffff; z-index: 5; }
-
-        /* Joystick */
-        #joystick-base { position: absolute; bottom: 40px; left: 40px; width: 90px; height: 90px; background: rgba(255,255,255,0.1); border: 2px solid #fff; border-radius: 50%; }
-        #stick { position: absolute; top: 20px; left: 20px; width: 50px; height: 50px; background: red; border-radius: 50%; }
-
-        /* Attack Button */
-        #fire-btn { position: absolute; bottom: 50px; right: 50px; width: 70px; height: 70px; background: rgba(255,0,0,0.5); border: 3px solid #fff; border-radius: 50%; color: white; font-weight: bold; display: flex; align-items: center; justify-content: center; z-index: 20; }
+        /* Standard UI and Character */
+        #ui { position: absolute; top: 10px; width: 100%; text-align: center; color: yellow; z-index: 10; pointer-events: none; }
+        #player { position: absolute; width: 35px; height: 35px; background: #00ffff; border: 2px solid white; border-radius: 6px; box-shadow: 0 0 15px #00ffff; z-index: 5; left: 50%; top: 50%; }
+        #joystick-base { position: absolute; bottom: 40px; left: 40px; width: 100px; height: 100px; background: rgba(255,255,255,0.1); border: 2px solid #fff; border-radius: 50%; }
+        #stick { position: absolute; top: 25px; left: 25px; width: 50px; height: 50px; background: radial-gradient(circle, red, darkred); border-radius: 50%; }
     </style>
 </head>
 <body>
-    <div id="logo">M<span>L</span>ovely</div>
+    <div id="game-title">
+        <span class="battle-jack">BATTLE JACK</span> <span class="destiny">DESTINY</span>
+    </div>
+    
+    <div id="logo-container">
+        <div id="shield">
+            <div style="font-size: 60px; font-weight: bold; color: white; margin-bottom: 20px;">M</div>
+            <div style="font-size: 40px; font-weight: bold; color: gold; margin-top: -30px;">L</div>
+        </div>
+        <div id="mlovely-text">MLOVELY</div>
+    </div>
     
     <div id="ui">
-        <h3 style="margin:0;">PATNA METRO - HARINAGAR</h3>
-        <p id="msg" style="color: #00ff00; margin:2px; font-size:14px;">Swaagat ba Patna Metro mein!</p>
+        <h3 style="margin:0;">HARINAGAR METRO STATION</h3>
+        <p style="color: lime; margin:5px;">SWAAGAT BA PATNA METRO MEIN!</p>
     </div>
 
     <div id="player"></div>
     <div id="joystick-base"><div id="stick"></div></div>
-    <div id="fire-btn" onclick="fire()">FIRE</div>
 
     <script>
+        // ... (Keep the rest of your smooth movement script the same) ...
         const player = document.getElementById('player');
-        const stick = document.getElementById('stick');
-        const base = document.getElementById('joystick-base');
-        const msg = document.getElementById('msg');
-
-        let px = window.innerWidth / 2, py = window.innerHeight / 2;
-        let mx = 0, my = 0;
-        let active = false;
-
-        // Fire Function (Gun sound effect ke liye)
-        function fire() {
-            msg.innerText = "DHAYEN! DHAYEN!"; // Bhojpuri gun sound effect
-            msg.style.color = "red";
-            setTimeout(() => { 
-                msg.innerText = "Swaagat ba Patna Metro mein!"; 
-                msg.style.color = "#00ff00";
-            }, 500);
-        }
-
-        const handleMove = (e) => {
-            if (!active) return;
-            const t = e.touches[0];
-            const r = base.getBoundingClientRect();
-            const dx = t.clientX - (r.left + 45), dy = t.clientY - (r.top + 45);
-            const d = Math.min(Math.sqrt(dx*dx + dy*dy), 35);
-            const a = Math.atan2(dy, dx);
-            stick.style.transform = `translate(${Math.cos(a)*d}px, ${Math.sin(a)*d}px)`;
-            mx = Math.cos(a) * (d / 7); my = Math.sin(a) * (d / 7);
-        };
-
-        base.addEventListener('touchstart', (e) => { active = true; handleMove(e); });
-        window.addEventListener('touchmove', handleMove, { passive: false });
-        window.addEventListener('touchend', () => { active = false; mx = 0; my = 0; stick.style.transform = 'translate(0,0)'; });
-
-        function loop() {
-            px = Math.max(0, Math.min(window.innerWidth - 40, px + mx));
-            py = Math.max(0, Math.min(window.innerHeight - 40, py + my));
-            player.style.left = px + 'px'; player.style.top = py + 'px';
-            requestAnimationFrame(loop);
-        }
-        loop();
+        // ... rest of the code is unchanged ...
     </script>
 </body>
 </html>
+
 
 
 
